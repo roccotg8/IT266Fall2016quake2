@@ -226,10 +226,6 @@ void NextWeapon (edict_t *attacker)		//rtg
 	case 10:
 		//blaster;
 		break;
-	default:
-		//blaster;
-		break;
-
 	}
 }
 
@@ -330,7 +326,7 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 		{
 			gi.bprintf (PRINT_MEDIUM, "%s %s.\n", self->client->pers.netname, message);
 			if (deathmatch->value)
-				self->client->resp.score = 0;
+				self->client->resp.score = 0;	//rtg
 			self->enemy = NULL;
 			return;
 		}
@@ -415,7 +411,7 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 				if (deathmatch->value)
 				{
 					if (ff)
-						attacker->client->resp.score = 0;
+						attacker->client->resp.score = 0;	//rtg
 					else
 						attacker->client->resp.score++;
 				}
@@ -426,7 +422,7 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 
 	gi.bprintf (PRINT_MEDIUM,"%s died.\n", self->client->pers.netname);
 	if (deathmatch->value)
-		self->client->resp.score = 0;
+		self->client->resp.score = 0;	//rtg
 
 	//NextWeapon(attacker);	//rtg
 }
@@ -553,7 +549,7 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 		LookAtKiller (self, inflictor, attacker);
 		self->client->ps.pmove.pm_type = PM_DEAD;
 		ClientObituary (self, inflictor, attacker);
-		TossClientWeapon (self);
+		//TossClientWeapon (self);
 		if (deathmatch->value)
 			Cmd_Help_f (self);		// show scores
 
@@ -617,6 +613,8 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 	}
 
 	self->deadflag = DEAD_DEAD;
+
+	self->client->resp.score = 0;	//rtg
 
 	gi.linkentity (self);
 }
