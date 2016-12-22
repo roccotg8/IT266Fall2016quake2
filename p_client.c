@@ -189,6 +189,50 @@ qboolean IsNeutral (edict_t *ent)
 	return false;
 }
 
+void NextWeapon (edict_t *attacker)		//rtg
+{
+	switch(attacker->client->resp.score)
+	{
+	case 0:
+		//bfg
+		break;
+	case 1:
+		//rocket launcher;
+		break;
+	case 2:
+		//grenade launcher
+		break;
+	case 3:
+		//supershotgun
+		break;
+	case 4:
+		//chaingun
+		break;
+	case 5:
+		//hyperblaster
+		break;
+	case 6:
+		//machinegun
+		break;
+	case 7:
+		//shotgun
+		break;
+	case 8:
+		//railgun
+		break;
+	case 9:
+		//hand grenade;
+		break;
+	case 10:
+		//blaster;
+		break;
+	default:
+		//blaster;
+		break;
+
+	}
+}
+
 void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 {
 	int			mod;
@@ -286,7 +330,7 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 		{
 			gi.bprintf (PRINT_MEDIUM, "%s %s.\n", self->client->pers.netname, message);
 			if (deathmatch->value)
-				self->client->resp.score--;
+				self->client->resp.score = 0;
 			self->enemy = NULL;
 			return;
 		}
@@ -371,7 +415,7 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 				if (deathmatch->value)
 				{
 					if (ff)
-						attacker->client->resp.score--;
+						attacker->client->resp.score = 0;
 					else
 						attacker->client->resp.score++;
 				}
@@ -382,7 +426,9 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 
 	gi.bprintf (PRINT_MEDIUM,"%s died.\n", self->client->pers.netname);
 	if (deathmatch->value)
-		self->client->resp.score--;
+		self->client->resp.score = 0;
+
+	//NextWeapon(attacker);	//rtg
 }
 
 
