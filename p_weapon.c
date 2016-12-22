@@ -216,6 +216,7 @@ NoAmmoWeaponChange
 */
 void NoAmmoWeaponChange (edict_t *ent)
 {
+	return;
 	if ( ent->client->pers.inventory[ITEM_INDEX(FindItem("slugs"))]
 		&&  ent->client->pers.inventory[ITEM_INDEX(FindItem("railgun"))] )
 	{
@@ -344,7 +345,7 @@ void Drop_Weapon (edict_t *ent, gitem_t *item)
 		return;
 	}
 
-	Drop_Item (ent, item);
+	Drop_Item (ent, item);	//rtg
 	ent->client->pers.inventory[index]--;
 }
 

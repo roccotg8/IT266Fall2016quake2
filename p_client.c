@@ -195,36 +195,57 @@ void NextWeapon (edict_t *attacker)		//rtg
 	{
 	case 0:
 		//bfg
+		attacker->client->newweapon = FindItem ("BFG10K");
 		break;
 	case 1:
-		//rocket launcher;
+		//rocket launcher
+		//remove previous weapon
+		attacker->client->newweapon = FindItem ("Rocket Launcher");
 		break;
 	case 2:
-		//grenade launcher
+		//grenade launcher 
+		//remove previous weapon
+		attacker->client->newweapon = FindItem ("Grenade Launcher");
 		break;
 	case 3:
 		//supershotgun
+		//remove previous weapon
+		attacker->client->newweapon = FindItem ("super shotgun");
 		break;
 	case 4:
 		//chaingun
+		//remove previous weapon
+		attacker->client->newweapon = FindItem ("chaingun");
 		break;
 	case 5:
 		//hyperblaster
+		//remove previous weapon
+		attacker->client->newweapon = FindItem ("hyperblaster");
 		break;
 	case 6:
 		//machinegun
+		//remove previous weapon
+		attacker->client->newweapon = FindItem ("machinegun");
 		break;
 	case 7:
 		//shotgun
+		//remove previous weapon
+		attacker->client->newweapon = FindItem ("shotgun");
 		break;
 	case 8:
 		//railgun
+		//remove previous weapon
+		attacker->client->newweapon = FindItem ("railgun");
 		break;
 	case 9:
-		//hand grenade;
+		//hand grenade
+		//remove previous weapon
+		attacker->client->newweapon = FindItem ("Grenades");
 		break;
 	case 10:
-		//blaster;
+		//blaster
+		//remove previous weapon
+		attacker->client->newweapon = FindItem ("Blaster");
 		break;
 	}
 }
@@ -424,7 +445,7 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 	if (deathmatch->value)
 		self->client->resp.score = 0;	//rtg
 
-	//NextWeapon(attacker);	//rtg
+	NextWeapon(attacker);	//rtg
 }
 
 
