@@ -741,7 +741,10 @@ Touch_Item
 */
 void Touch_Item (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
+	
 	qboolean	taken;
+
+	return;
 
 	if (!other->client)
 		return;

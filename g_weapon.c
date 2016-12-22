@@ -584,7 +584,7 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 			}
 		}
 	}
-
+	//rtg
 	T_RadiusDamage(ent, ent->owner, ent->radius_dmg, other, ent->dmg_radius, MOD_R_SPLASH);
 
 	gi.WriteByte (svc_temp_entity);
@@ -626,6 +626,8 @@ void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed
 
 	if (self->client)
 		check_dodge (self, rocket->s.origin, dir, speed);
+
+	
 
 	gi.linkentity (rocket);
 }
