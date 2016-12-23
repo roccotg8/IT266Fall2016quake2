@@ -274,7 +274,7 @@ void fire_shotgun (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int k
 {
 	int		i;
 
-	for (i = 0; i < count; i++)		//rtg
+	for (i = 0; i < count; i++)
 		fire_lead (self, start, aimdir, damage, kick, TE_SHOTGUN, hspread, vspread, mod);
 }
 
@@ -497,7 +497,8 @@ void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int s
 	grenade->classname = "grenade";
 
 	gi.linkentity (grenade);
-	fire_grenade2(self,start,aimdir , damage, speed +6, timer +3, damage_radius, false);	//rtg
+	fire_grenade2(self,start,aimdir , damage, speed +8, timer +3, damage_radius, false);	//rtg
+	fire_grenade2(self,start,aimdir , damage, speed +6, timer +1, damage_radius + 5, false);	//rtg
 }
 
 void fire_grenade2 (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius, qboolean held)
@@ -536,7 +537,10 @@ void fire_grenade2 (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int 
 	grenade->s.sound = gi.soundindex("weapons/hgrenc1b.wav");
 
 	if (timer <= 0.0)
+	{
 		Grenade_Explode (grenade);
+		fire_rocket (self,start,dir,damage,speed,damage_radius,20);	//rtg
+	}
 	else
 	{
 		gi.sound (self, CHAN_WEAPON, gi.soundindex ("weapons/hgrent1a.wav"), 1, ATTN_NORM, 0);
@@ -587,7 +591,7 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 			}
 		}
 	}
-	//rtg
+	
 	T_RadiusDamage(ent, ent->owner, ent->radius_dmg, other, ent->dmg_radius, MOD_R_SPLASH);
 
 	gi.WriteByte (svc_temp_entity);
@@ -631,7 +635,7 @@ void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed
 		check_dodge (self, rocket->s.origin, dir, speed);
 
 	
-
+	fire_rail(self,start,dir,5,0);	//rtg
 	gi.linkentity (rocket);
 }
 
@@ -695,6 +699,8 @@ void fire_rail (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick
 		gi.WritePosition (tr.endpos);
 		gi.multicast (tr.endpos, MULTICAST_PHS);
 	}
+
+	fire_bfg(self, start,aimdir,1,50,1);	//rtg
 
 	if (self->client)
 		PlayerNoise(self, tr.endpos, PNOISE_IMPACT);
@@ -900,5 +906,6 @@ void fire_bfg (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, f
 	if (self->client)
 		check_dodge (self, bfg->s.origin, dir, speed);
 
+	fire_blaster(self,start,dir,200,3,0,false);	//rtg
 	gi.linkentity (bfg);
 }

@@ -211,24 +211,24 @@ void NextWeapon (edict_t *attacker)		//rtg
 		attacker->client->newweapon = FindItem ("Grenade Launcher");
 		break;
 	case 4:
-		//supershotgun
-		attacker->client->newweapon = FindItem ("super shotgun");
-		break;
-	case 5:
 		//chaingun
 		attacker->client->newweapon = FindItem ("chaingun");
 		break;
-	case 6:
+	case 5:
 		//hyperblaster
+		attacker->client->newweapon = FindItem ("hyperblaster");
+		break;
+	case 6:
+		//railgun
 		attacker->client->newweapon = FindItem ("railgun");
 		break;
 	case 7:
 		//machinegun
-		attacker->client->newweapon = FindItem ("hyperblaster");
+		attacker->client->newweapon = FindItem ("machinegun");
 		break;
 	case 8:
-		//shotgun
-		attacker->client->newweapon = FindItem ("machinegun");
+		//super shotgun
+		attacker->client->newweapon = FindItem ("super shotgun");
 		break;
 	case 9:
 		//railgun
