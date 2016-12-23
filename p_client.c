@@ -189,62 +189,61 @@ qboolean IsNeutral (edict_t *ent)
 	return false;
 }
 
+void StartingtWeapon (edict_t *player)		//rtg
+{
+	player->client->newweapon = FindItem ("BFG10K");
+}
+
 void NextWeapon (edict_t *attacker)		//rtg
 {
 	switch(attacker->client->resp.score)
 	{
-	case 0:
+	//case 0:
 		//bfg
-		attacker->client->newweapon = FindItem ("BFG10K");
-		break;
+		//attacker->client->newweapon = FindItem ("BFG10K");
+		//break;
 	case 1:
 		//rocket launcher
-		//remove previous weapon
 		attacker->client->newweapon = FindItem ("Rocket Launcher");
 		break;
 	case 2:
-		//grenade launcher 
-		//remove previous weapon
+		//grenade launcher
 		attacker->client->newweapon = FindItem ("Grenade Launcher");
 		break;
 	case 3:
 		//supershotgun
-		//remove previous weapon
 		attacker->client->newweapon = FindItem ("super shotgun");
 		break;
 	case 4:
 		//chaingun
-		//remove previous weapon
 		attacker->client->newweapon = FindItem ("chaingun");
 		break;
 	case 5:
 		//hyperblaster
-		//remove previous weapon
-		attacker->client->newweapon = FindItem ("hyperblaster");
+		attacker->client->newweapon = FindItem ("railgun");
 		break;
 	case 6:
 		//machinegun
-		//remove previous weapon
-		attacker->client->newweapon = FindItem ("machinegun");
+		attacker->client->newweapon = FindItem ("hyperblaster");
 		break;
 	case 7:
 		//shotgun
-		//remove previous weapon
-		attacker->client->newweapon = FindItem ("shotgun");
+		attacker->client->newweapon = FindItem ("machinegun");
 		break;
 	case 8:
 		//railgun
-		//remove previous weapon
-		attacker->client->newweapon = FindItem ("railgun");
+		attacker->client->newweapon = FindItem ("shotgun");
 		break;
 	case 9:
 		//hand grenade
-		//remove previous weapon
 		attacker->client->newweapon = FindItem ("Grenades");
 		break;
 	case 10:
 		//blaster
-		//remove previous weapon
+		attacker->client->newweapon = FindItem ("Blaster");
+		break;
+	default:
+		//blaster
 		attacker->client->newweapon = FindItem ("Blaster");
 		break;
 	}
@@ -256,6 +255,8 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 	char		*message;
 	char		*message2;
 	qboolean	ff;
+
+	//NextWeapon(attacker);	//rtg
 
 	if (coop->value && attacker->client)
 		meansOfDeath |= MOD_FRIENDLY_FIRE;
@@ -435,6 +436,7 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 						attacker->client->resp.score = 0;	//rtg
 					else
 						attacker->client->resp.score++;
+					NextWeapon(attacker);	//rtg
 				}
 				return;
 			}
@@ -444,8 +446,6 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 	gi.bprintf (PRINT_MEDIUM,"%s died.\n", self->client->pers.netname);
 	if (deathmatch->value)
 		self->client->resp.score = 0;	//rtg
-
-	NextWeapon(attacker);	//rtg
 }
 
 
@@ -656,9 +656,10 @@ void InitClientPersistant (gclient_t *client)
 
 	memset (&client->pers, 0, sizeof(client->pers));
 
-	item = FindItem("BFG10K");	//rtg
+	item = FindItem("Cells");	//rtg
+	client->resp.score = 0;		//rtg
 	client->pers.selected_item = ITEM_INDEX(item);
-	client->pers.inventory[client->pers.selected_item] = 1;
+	client->pers.inventory[client->pers.selected_item] = 50;	//rtg
 
 	client->pers.weapon = item;
 
@@ -745,7 +746,7 @@ float	PlayersRangeFromSpot (edict_t *spot)
 	int		n;
 	float	playerdistance;
 
-
+	StartingtWeapon(player);	//rtg
 	bestplayerdistance = 9999999;
 
 	for (n = 1; n <= maxclients->value; n++)

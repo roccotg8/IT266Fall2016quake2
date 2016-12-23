@@ -163,7 +163,7 @@ void ChangeWeapon (edict_t *ent)
 		ent->client->grenade_time = level.time;
 		ent->client->weapon_sound = 0;
 		weapon_grenade_fire (ent, false);
-		ent->client->grenade_time = 0;
+		ent->client->grenade_time = 0;	
 	}
 
 	ent->client->pers.lastweapon = ent->client->pers.weapon;
