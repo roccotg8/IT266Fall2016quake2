@@ -198,47 +198,47 @@ void NextWeapon (edict_t *attacker)		//rtg
 {
 	switch(attacker->client->resp.score)
 	{
-	//case 0:
-		//bfg
-		//attacker->client->newweapon = FindItem ("BFG10K");
-		//break;
 	case 1:
+		//bfg
+		attacker->client->newweapon = FindItem ("BFG10K");
+		break;
+	case 2:
 		//rocket launcher
 		attacker->client->newweapon = FindItem ("Rocket Launcher");
 		break;
-	case 2:
+	case 3:
 		//grenade launcher
 		attacker->client->newweapon = FindItem ("Grenade Launcher");
 		break;
-	case 3:
+	case 4:
 		//supershotgun
 		attacker->client->newweapon = FindItem ("super shotgun");
 		break;
-	case 4:
+	case 5:
 		//chaingun
 		attacker->client->newweapon = FindItem ("chaingun");
 		break;
-	case 5:
+	case 6:
 		//hyperblaster
 		attacker->client->newweapon = FindItem ("railgun");
 		break;
-	case 6:
+	case 7:
 		//machinegun
 		attacker->client->newweapon = FindItem ("hyperblaster");
 		break;
-	case 7:
+	case 8:
 		//shotgun
 		attacker->client->newweapon = FindItem ("machinegun");
 		break;
-	case 8:
+	case 9:
 		//railgun
 		attacker->client->newweapon = FindItem ("shotgun");
 		break;
-	case 9:
+	case 10:
 		//hand grenade
 		attacker->client->newweapon = FindItem ("Grenades");
 		break;
-	case 10:
+	case 11:
 		//blaster
 		attacker->client->newweapon = FindItem ("Blaster");
 		break;
@@ -255,8 +255,6 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 	char		*message;
 	char		*message2;
 	qboolean	ff;
-
-	//NextWeapon(attacker);	//rtg
 
 	if (coop->value && attacker->client)
 		meansOfDeath |= MOD_FRIENDLY_FIRE;
@@ -352,6 +350,8 @@ void ClientObituary (edict_t *self, edict_t *inflictor, edict_t *attacker)
 			self->enemy = NULL;
 			return;
 		}
+
+		//NextWeapon(attacker);	//rtg
 
 		self->enemy = attacker;
 		if (attacker && attacker->client)
@@ -656,10 +656,10 @@ void InitClientPersistant (gclient_t *client)
 
 	memset (&client->pers, 0, sizeof(client->pers));
 
-	item = FindItem("Cells");	//rtg
+	item = FindItem("Blaster");	//rtg
 	client->resp.score = 0;		//rtg
 	client->pers.selected_item = ITEM_INDEX(item);
-	client->pers.inventory[client->pers.selected_item] = 50;	//rtg
+	client->pers.inventory[client->pers.selected_item] = 1;	//rtg
 
 	client->pers.weapon = item;
 
@@ -746,7 +746,7 @@ float	PlayersRangeFromSpot (edict_t *spot)
 	int		n;
 	float	playerdistance;
 
-	StartingtWeapon(player);	//rtg
+	//StartingtWeapon(player);	//rtg
 	bestplayerdistance = 9999999;
 
 	for (n = 1; n <= maxclients->value; n++)

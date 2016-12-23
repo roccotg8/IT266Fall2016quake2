@@ -223,6 +223,7 @@ static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, i
 	}
 
 	// if went through water, determine where the end and make a bubble trail
+	/*	//rtg
 	if (water)
 	{
 		vec3_t	pos;
@@ -244,6 +245,7 @@ static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, i
 		gi.WritePosition (tr.endpos);
 		gi.multicast (pos, MULTICAST_PVS);
 	}
+	*/
 }
 
 
